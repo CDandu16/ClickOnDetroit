@@ -29,6 +29,9 @@ request(url, function(error, response, html){
           $(".story_content").each(function(i,element){
 
           })
+          
+          console.log(articles);
+
         }
       })
     }
