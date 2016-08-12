@@ -4,10 +4,10 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
 
-url = 'http://www.clickondetroit.com/';
+var url = 'http://www.clickondetroit.com';
+var articles = [];
 request(url, function(error, response, html){
   if(!error){
-    var articles = [];
     var $ = cheerio.load(html);
     $(".article-wrap").each(function(i,element){
       //gets the article headers on the main page and cleans them
@@ -20,10 +20,20 @@ request(url, function(error, response, html){
       articles.push(article)
     })
     //log the articles to the console
-    console.log(articles)
+    //This is to grab the content for each article i'm sure i'm doing it wrong
+    for(var i=0;i<articles.length;i++){
+      var url =  'http://www.clickondetroit.com' + articles[i].url
+      request(url,function(error,response,html){
+        if(!error){
+          var $ = cheerio.load(html);
+          $(".story_content").each(function(i,element){
+
+          })
+        }
+      })
+    }
   }
 })
-
 
 app.listen('8081')
 
