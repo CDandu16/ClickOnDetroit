@@ -7,17 +7,22 @@ var app     = express();
 url = 'http://www.clickondetroit.com/';
 request(url, function(error, response, html){
   if(!error){
-    var titles = [];
+    var articles = [];
     var $ = cheerio.load(html);
     $(".article-wrap").each(function(i,element){
-      //gets the article headers on the main page
+      //gets the article headers on the main page and cleans them
       var title = $(this).children().children(".article-headline").text();
+      title = title.replace(/\s+/g, " ")
+       .replace(/[^a-zA-Z ]/g, "")
+       .toLowerCase();
+      //gets the url's for each of the articles
       var url = $(this).find("a").attr("href")
-      titles.push(title)
-      var object = {"title":title, "url": url}
-      //console.log(object);
+      //make an object containing the title and url for each article
+      var article = {"title":title, "url": url}
+      articles.push(article)
     })
-    console.log(titles)
+    //log the articles to the console
+    console.log(articles)
   }
 })
 
