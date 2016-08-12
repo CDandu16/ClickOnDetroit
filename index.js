@@ -12,9 +12,7 @@ request(url, function(error, response, html){
     $(".article-wrap").each(function(i,element){
       //gets the article headers on the main page and cleans them
       var title = $(this).children().children(".article-headline").text();
-      title = title.replace(/\s+/g, " ")
-       .replace(/[^a-zA-Z ]/g, "")
-       .toLowerCase();
+      title = title.trim();
       //gets the url's for each of the articles
       var url = $(this).find("a").attr("href")
       //make an object containing the title and url for each article
