@@ -7,16 +7,17 @@ var app     = express();
 url = 'http://www.clickondetroit.com/';
 request(url, function(error, response, html){
   if(!error){
+    var titles = [];
     var $ = cheerio.load(html);
     $(".article-wrap").each(function(i,element){
       //gets the article headers on the main page
       var title = $(this).children().children(".article-headline").text();
-
-      //supposed to get url doesn't work
-      console.log($(this).attr("href"))
-      var url
-
+      var url = $(this).find("a").attr("href")
+      titles.push(title)
+      var object = {"title":title, "url": url}
+      //console.log(object);
     })
+    console.log(titles)
   }
 })
 
